@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MedicalBooking</string>
+    <string name="app_splash_title">MEDICAL BOOKING</string>
 </resources>
