@@ -29,7 +29,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             nextActivity(RegistrationActivity.class);
         }
         else if(id == R.id.loginButton) {
-            nextActivity(ProfileActivity.class);
+//            nextActivity(ProfileActivity.class);
+            nextActivity(BookApointmentActivity.class);
         }
     }
 }

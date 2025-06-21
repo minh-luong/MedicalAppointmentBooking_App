@@ -25,6 +25,8 @@
         <activity android:name=".activity.LoginActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.RegistrationActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.ProfileActivity" android:launchMode="singleTask"/>
+        <activity android:name=".activity.HomeActivity" android:launchMode="singleTask"/>
+        <activity android:name=".activity.BookApointmentActivity" android:launchMode="singleTask"/>
     </application>
 
 </manifest>

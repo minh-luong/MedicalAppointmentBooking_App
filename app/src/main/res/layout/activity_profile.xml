@@ -89,7 +89,6 @@
         android:id="@+id/editButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintWidth_percent="0.25"
         android:text="Edit"
         android:textAllCaps="false"
         android:textColor="@color/main_color"
