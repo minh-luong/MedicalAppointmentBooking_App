@@ -2,10 +2,23 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E6F4FF"
-    android:padding="16dp">
+    android:background="#FFFFFF" >
+
+    <!-- Back Arrow -->
+    <ImageView
+        android:id="@+id/backArrow"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_arrow_back"
+        android:tint="@color/black"
+        android:contentDescription="Back"
+        app:layout_constraintTop_toTopOf="@id/titleText"
+        app:layout_constraintBottom_toBottomOf="@id/titleText"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="UseAppTint" />
 
     <!-- Title -->
     <TextView
@@ -15,9 +28,11 @@
         android:text="Medication Reminders"
         android:textSize="22sp"
         android:textStyle="bold"
+        android:textColor="#000000"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="30dp"/>
 
     <!-- List -->
     <androidx.recyclerview.widget.RecyclerView
@@ -28,13 +43,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/addReminderButton"
-        android:layout_marginTop="12dp"/>
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="20dp"/>
 
     <!-- Add Reminder Button -->
     <Button
         android:id="@+id/addReminderButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.9"
         android:text="+ ADD REMINDER"
         android:textAllCaps="true"
         android:textStyle="bold"

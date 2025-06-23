@@ -27,6 +27,12 @@
         <activity android:name=".activity.ProfileActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.HomeActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.BookApointmentActivity" android:launchMode="singleTask"/>
+        <activity android:name=".activity.UpcomingAppointmentsActivity" android:launchMode="singleTask"/>
+        <activity android:name=".activity.MedicalHistoryActivity" android:launchMode="singleTask"/>
+        <activity android:name=".activity.MedicationReminerActivity" android:launchMode="singleTask"/>
+        <activity android:name=".activity.HospitalLocatorActivity" android:launchMode="singleTask"/>
+        <activity android:name=".activity.NotificationsActivity" android:launchMode="singleTask"/>
+        <activity android:name=".activity.SettingsActivity" android:launchMode="singleTask"/>
     </application>
 
 </manifest>
