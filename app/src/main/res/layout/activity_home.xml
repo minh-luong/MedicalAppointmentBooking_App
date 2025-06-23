@@ -20,6 +20,34 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="30dp" />
 
+    <!-- Settings Icon -->
+    <ImageView
+        android:id="@+id/settingsIcon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_settings"
+        android:contentDescription="Settings"
+        android:layout_marginEnd="20dp"
+        android:tint="@color/main_color"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/profileIcon"
+        android:layout_marginTop="30dp"
+        tools:ignore="UseAppTint" />
+
+    <!-- Profile Icon -->
+    <ImageView
+        android:id="@+id/profileIcon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_person_gray"
+        android:contentDescription="Profile"
+        android:layout_marginEnd="20dp"
+        android:tint="@color/main_color"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/notificationIconLayout"
+        android:layout_marginTop="30dp"
+        tools:ignore="UseAppTint" />
+
     <!-- Notification Icon with Badge -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/notificationIconLayout"

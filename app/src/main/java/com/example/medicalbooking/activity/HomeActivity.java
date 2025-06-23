@@ -3,6 +3,7 @@ package com.example.medicalbooking.activity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -26,6 +27,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         ((LinearLayout) findViewById(R.id.medicationReminderLayout)).setOnClickListener(this);
         ((LinearLayout) findViewById(R.id.mapLayout)).setOnClickListener(this);
         ((ConstraintLayout) findViewById(R.id.notificationIconLayout)).setOnClickListener(this);
+        ((ImageView) findViewById(R.id.settingsIcon)).setOnClickListener(this);
+        ((ImageView) findViewById(R.id.profileIcon)).setOnClickListener(this);
     }
 
     @Override
@@ -48,6 +51,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         }
         else if(id == R.id.notificationIconLayout) {
             nextActivity(NotificationsActivity.class);
+        }
+        else if(id == R.id.settingsIcon) {
+            nextActivity(SettingsActivity.class);
+        }
+        else if(id == R.id.profileIcon) {
+            nextActivity(ProfileActivity.class);
         }
     }
 

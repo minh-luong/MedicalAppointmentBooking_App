@@ -1,5 +1,6 @@
 package com.example.medicalbooking.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -36,8 +37,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
         else if(id == R.id.loginButton) {
 //            nextActivity(ProfileActivity.class);
-//            if(emailEd.getText().toString().equals("test@gmail.com") && passwordEd.getText().toString().equals("12345678"))
+            if(emailEd.getText().toString().equals("test@gmail.com") && passwordEd.getText().toString().equals("12345678"))
                 nextActivity(HomeActivity.class);
         }
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    public void onBackPressed() {
+
     }
 }
