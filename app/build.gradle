@@ -13,6 +13,10 @@ android {
         versionCode 1
         versionName "1.0"
 
+        manifestPlaceholders = [
+            googleMapsKey: project.findProperty("MAPS_API_KEY") ?: ""
+        ]
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

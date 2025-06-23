@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class BookApointmentActivity extends BaseActivity implements View.OnClickListener {
+public class BookAppointmentActivity extends BaseActivity implements View.OnClickListener {
 
     private Calendar selectedDateTime;
 

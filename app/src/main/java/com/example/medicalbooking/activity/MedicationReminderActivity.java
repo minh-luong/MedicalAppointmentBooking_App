@@ -16,7 +16,7 @@ import com.example.medicalbooking.model.MedicationReminder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MedicationReminerActivity extends BaseActivity implements View.OnClickListener {
+public class MedicationReminderActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView backArrow;
     private RecyclerView reminderRecyclerView;

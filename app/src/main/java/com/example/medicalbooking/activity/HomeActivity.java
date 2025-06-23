@@ -32,7 +32,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         if(id == R.id.bookAppointmentLayout) {
-            nextActivity(BookApointmentActivity.class);
+            nextActivity(BookAppointmentActivity.class);
         }
         else if(id == R.id.upcomingAppointmentsLayout) {
             nextActivity(UpcomingAppointmentsActivity.class);
@@ -41,7 +41,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             nextActivity(MedicalHistoryActivity.class);
         }
         else if(id == R.id.medicationReminderLayout) {
-            nextActivity(MedicationReminerActivity.class);
+            nextActivity(MedicationReminderActivity.class);
         }
         else if(id == R.id.mapLayout) {
             nextActivity(HospitalLocatorActivity.class);

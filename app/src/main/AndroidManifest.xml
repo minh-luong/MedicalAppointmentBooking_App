@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -26,13 +29,17 @@
         <activity android:name=".activity.RegistrationActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.ProfileActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.HomeActivity" android:launchMode="singleTask"/>
-        <activity android:name=".activity.BookApointmentActivity" android:launchMode="singleTask"/>
+        <activity android:name=".activity.BookAppointmentActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.UpcomingAppointmentsActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.MedicalHistoryActivity" android:launchMode="singleTask"/>
-        <activity android:name=".activity.MedicationReminerActivity" android:launchMode="singleTask"/>
+        <activity android:name=".activity.MedicationReminderActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.HospitalLocatorActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.NotificationsActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.SettingsActivity" android:launchMode="singleTask"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${googleMapsKey}" />
     </application>
 
 </manifest>
