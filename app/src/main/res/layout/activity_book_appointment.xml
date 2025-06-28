@@ -33,6 +33,31 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="24dp"/>
 
+    <!-- Department Dropdown -->
+    <TextView
+        android:id="@+id/departmentLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Department"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Spinner
+        android:id="@+id/departmentSpinner"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="@drawable/edit_text_bg"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintTop_toBottomOf="@id/departmentLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
     <!-- Doctor Dropdown -->
     <TextView
         android:id="@+id/doctorLabel"
@@ -41,8 +66,8 @@
         android:text="Doctor"
         android:textStyle="bold"
         android:textColor="#000000"
-        android:layout_marginTop="32dp"
-        app:layout_constraintTop_toBottomOf="@id/title"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/departmentSpinner"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <Spinner

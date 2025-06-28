@@ -24,7 +24,7 @@ public class BookAppointmentActivity extends BaseActivity implements View.OnClic
     private Calendar selectedDateTime;
 
     private ImageView backArrow;
-    private Spinner doctorSpinner;
+    private Spinner departmentSpinner, doctorSpinner;
     private LinearLayout dateTimePicker;
     private TextView dateTimeText;
     private EditText symptomsEditText;
@@ -40,6 +40,7 @@ public class BookAppointmentActivity extends BaseActivity implements View.OnClic
 
     private void initUI() {
         backArrow = findViewById(R.id.backArrow);
+        departmentSpinner = findViewById(R.id.departmentSpinner);
         doctorSpinner = findViewById(R.id.doctorSpinner);
         dateTimePicker = findViewById(R.id.dateTimePicker);
         dateTimeText = findViewById(R.id.dateTimeText);
@@ -47,6 +48,11 @@ public class BookAppointmentActivity extends BaseActivity implements View.OnClic
         confirmBookingButton = findViewById(R.id.confirmBookingButton);
 
         backArrow.setOnClickListener(this);
+
+        // Departments
+        String[] departments = {"Neurology", "Cardiology", "Internal Medicine"};
+        ArrayAdapter<String> departmentAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, departments);
+        departmentSpinner.setAdapter(departmentAdapter);
 
         // Populate doctor spinner
         String[] doctors = {"Dr. Smith", "Dr. Johnson", "Dr. Lee", "Dr. Rachel"};
