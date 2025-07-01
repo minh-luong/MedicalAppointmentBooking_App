@@ -1,5 +1,6 @@
 package com.example.medicalbooking.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.medicalbooking.R;
@@ -14,11 +15,28 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                nextActivity(LoginActivity.class);
-            }
-        }, 2000);
+        checkLoggedIn();
+    }
+
+    private void checkLoggedIn() {
+        SharedPreferences prefs = getSharedPreferences("medicalbooking", MODE_PRIVATE);
+        boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);
+
+        if(isLoggedIn) {
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    nextActivityNoBack(HomeActivity.class);
+                }
+            }, 1000);
+        }
+        else {
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    nextActivity(LoginActivity.class);
+                }
+            }, 2000);
+        }
     }
 }

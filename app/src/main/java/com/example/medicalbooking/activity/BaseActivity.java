@@ -35,13 +35,23 @@ public class BaseActivity extends AppCompatActivity {
 
     public void nextActivity(Class<?> _class) {
         startActivity(new Intent(getApplicationContext(), _class));
-//        finish();
+    }
+
+    public void nextActivityNoBack(Class<?> _class) {
+        startActivity(new Intent(getApplicationContext(), _class));
+        finish();
     }
 
     public void nextActivityWithParam(Class<?> _class, Bundle bundle) {
         Intent intent = new Intent(getApplicationContext(), _class);
         intent.putExtras(bundle);
         startActivity(intent);
-//        finish();
+    }
+
+    public void nextActivityWithParamNoBack(Class<?> _class, Bundle bundle) {
+        Intent intent = new Intent(getApplicationContext(), _class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        finish();
     }
 }
