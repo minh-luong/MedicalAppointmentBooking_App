@@ -1,5 +1,6 @@
 package com.example.medicalbooking.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -8,8 +9,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.example.medicalbooking.R;
+import com.example.medicalbooking.factory.Factory;
+import com.example.medicalbooking.utils.HttpRequest;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class RegistrationActivity extends BaseActivity implements View.OnClickListener {
 
@@ -79,13 +88,57 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
                 registerButton.setText("Register");
 
                 if (task.isSuccessful()) {
-                    Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
-                    nextActivityNoBack(LoginActivity.class);
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if(user != null) {
+                        callRegisterApi(user.getUid(), fullName, email);
+                    }
                 } else {
                     Toast.makeText(this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
     }
+
+    private void callRegisterApi(String firebaseUid, String fullName, String email) {
+        String url = Factory.getHostApi() +  "/api/users/register";
+
+        HttpRequest httpRequest = new HttpRequest(this);
+
+        // Set headers
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json");
+
+        // Build JSON body
+        JSONObject body = new JSONObject();
+        try {
+            body.put("firebase_uid", firebaseUid);
+            body.put("full_name", fullName);
+            body.put("email", email);
+            body.put("phone_number", "0912345678");
+            body.put("gender", "male");
+            body.put("date_of_birth", "1995-06-15");
+            body.put("address", "123 Main Street");
+            body.put("role", "user");
+        } catch (Exception e) {
+            Toast.makeText(this, "Error creating request body", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Call API
+        httpRequest.executeJsonRequest("POST", url, headers, body, new HttpRequest.JsonRequestCallback() {
+            @Override
+            public void onResponse(int statusCode, JSONObject response) {
+                // Success
+                Toast.makeText(getApplicationContext(), "Registration successful!", Toast.LENGTH_SHORT).show();
+                nextActivityNoBack(LoginActivity.class);
+            }
+
+            @Override
+            public void onErrorResponse(int statusCode, String response, VolleyError error) {
+                Toast.makeText(RegistrationActivity.this, "API error: " + response, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
 
     @Override
     public void onClick(View v) {

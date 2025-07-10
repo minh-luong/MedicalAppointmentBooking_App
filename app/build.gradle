@@ -42,6 +42,8 @@ dependencies {
     implementation libs.play.services.maps
     implementation libs.ui.text.android
     implementation libs.firebase.auth
+    implementation libs.android.volley
+    implementation libs.security.crypto
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core

@@ -4,6 +4,8 @@ import com.example.medicalbooking.activity.BaseActivity;
 
 public class Factory {
 
+    private static final String hostApi = "http://192.168.1.24:3000";
+
     private static BaseActivity currentActivity = null;
 
     public static BaseActivity getCurrentActivity() {
@@ -12,5 +14,9 @@ public class Factory {
 
     public static void setCurrentActivity(BaseActivity currentActivity) {
         Factory.currentActivity = currentActivity;
+    }
+
+    public static String getHostApi() {
+        return hostApi;
     }
 }

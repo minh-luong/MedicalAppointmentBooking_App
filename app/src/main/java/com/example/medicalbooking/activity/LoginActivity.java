@@ -11,9 +11,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKey;
+import androidx.security.crypto.MasterKeys;
+
 import com.example.medicalbooking.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
@@ -70,12 +77,23 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 if (task.isSuccessful()) {
                     // Store to the Share Preference
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                    SharedPreferences prefs = getSharedPreferences("medicalbooking", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putString("email", email);
-                    editor.putString("uid", currentUser != null ? currentUser.getUid() : "NULL");
-                    editor.putBoolean("isLoggedIn", true);
-                    editor.apply();
+                    try {
+                        MasterKey masterKey = new MasterKey.Builder(this)
+                                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                                .build();
+                        SharedPreferences prefs = EncryptedSharedPreferences.create(
+                                this, "medicalbooking", masterKey,
+                                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putString("firebase_uid", currentUser.getUid());
+                        editor.putString("email", email);
+                        editor.putString("password", password);
+                        editor.apply();
+                    }
+                    catch (Exception e) {
+                        //
+                    }
 
                     Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
                     nextActivityNoBack(HomeActivity.class);
