@@ -39,7 +39,7 @@
 
     <!-- User Name -->
     <TextView
-        android:id="@+id/userNameText"
+        android:id="@+id/fullNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nguyễn Duy Quân"
@@ -59,7 +59,7 @@
         android:text="Email"
         android:textStyle="bold"
         android:textColor="#555555"
-        app:layout_constraintTop_toBottomOf="@id/userNameText"
+        app:layout_constraintTop_toBottomOf="@id/fullNameText"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="24dp"/>
 
@@ -97,6 +97,76 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <!-- Address Label -->
+    <TextView
+        android:id="@+id/addressLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Address"
+        android:textStyle="bold"
+        android:textColor="#555555"
+        app:layout_constraintTop_toBottomOf="@id/phoneText"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp" />
+
+    <!-- Address -->
+    <TextView
+        android:id="@+id/addressText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="123 Main Street"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@id/addressLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Gender Label -->
+    <TextView
+        android:id="@+id/genderLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gender"
+        android:textStyle="bold"
+        android:textColor="#555555"
+        app:layout_constraintTop_toBottomOf="@id/addressText"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp" />
+
+    <!-- Gender -->
+    <TextView
+        android:id="@+id/genderText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Male"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@id/genderLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Date of Birth Label -->
+    <TextView
+        android:id="@+id/dobLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date of Birth"
+        android:textStyle="bold"
+        android:textColor="#555555"
+        app:layout_constraintTop_toBottomOf="@id/genderText"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp" />
+
+    <!-- Date of Birth -->
+    <TextView
+        android:id="@+id/dobText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Jun 14, 1995"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@id/dobLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
     <!-- Edit Button -->
     <Button
         android:id="@+id/editButton"
@@ -106,7 +176,7 @@
         android:textAllCaps="false"
         android:textColor="@color/main_color"
         android:background="@drawable/button_outline_main"
-        app:layout_constraintTop_toBottomOf="@id/phoneText"
+        app:layout_constraintTop_toBottomOf="@id/dobText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="32dp"/>
