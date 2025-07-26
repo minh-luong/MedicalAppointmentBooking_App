@@ -1,24 +1,28 @@
 package com.example.medicalbooking.model;
 
 public class Appointment {
-    private String date;
-    private String time;
+    private int appointmentId;
+    private String appointmentTime;
     private String doctor;
     private String clinic;
 
-    public Appointment(String date, String time, String doctor, String clinic) {
-        this.date = date;
-        this.time = time;
+    public Appointment(int appointmentId, String appointmentTime, String doctor, String clinic) {
+        this.appointmentId = appointmentId;
+        this.appointmentTime = appointmentTime;
         this.doctor = doctor;
         this.clinic = clinic;
     }
 
-    public String getDate() {
-        return date;
+    public int getAppointmentId() {
+        return appointmentId;
     }
 
-    public String getTime() {
-        return time;
+    public void setAppointmentId(int appointmentId) {
+        this.appointmentId = appointmentId;
+    }
+
+    public String getAppointmentTime() {
+        return appointmentTime;
     }
 
     public String getDoctor() {

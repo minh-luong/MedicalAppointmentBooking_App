@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.medicalbooking.R;
 import com.example.medicalbooking.model.Appointment;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.ViewHolder> {
 
@@ -39,8 +42,15 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     @Override
     public void onBindViewHolder(@NonNull AppointmentAdapter.ViewHolder holder, int position) {
         Appointment appointment = appointments.get(position);
-        holder.dateText.setText(appointment.getDate());
-        holder.timeText.setText(appointment.getTime());
+        String formattedDate = appointment.getAppointmentTime().substring(0, 10);
+        try {
+            formattedDate = new SimpleDateFormat("yyyy MMM dd", Locale.getDefault())
+                    .format(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(formattedDate));
+        } catch (Exception e) {
+            //
+        }
+        holder.dateText.setText(formattedDate);
+        holder.timeText.setText(appointment.getAppointmentTime().substring(11, 19));
         holder.doctorText.setText(appointment.getDoctor());
         holder.clinicText.setText(appointment.getClinic());
 

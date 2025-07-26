@@ -15,12 +15,22 @@ import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
 import androidx.security.crypto.MasterKeys;
 
+import com.android.volley.VolleyError;
 import com.example.medicalbooking.R;
+import com.example.medicalbooking.factory.Factory;
+import com.example.medicalbooking.model.Doctor;
+import com.example.medicalbooking.model.User;
+import com.example.medicalbooking.utils.HttpRequest;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
@@ -78,6 +88,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     // Store to the Share Preference
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     try {
+                        loadUserInformation(currentUser.getUid());
                         MasterKey masterKey = new MasterKey.Builder(this)
                                 .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
                                 .build();
@@ -114,6 +125,33 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mAuth.sendPasswordResetEmail(email)
             .addOnSuccessListener(unused -> Toast.makeText(LoginActivity.this, "Reset link sent to email", Toast.LENGTH_SHORT).show())
             .addOnFailureListener(e -> Toast.makeText(LoginActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+    }
+
+    private void loadUserInformation(String uid) {
+        HttpRequest httpRequest = new HttpRequest(this);
+
+        // Set headers
+        HashMap<String, String> headers = new HashMap<>();
+        List<Doctor> doctors = new ArrayList<>();
+
+        httpRequest.executeJsonRequest("GET", Factory.getHostApi() + "/api/users/get_info/" + uid, headers, new JSONObject(), new HttpRequest.JsonRequestCallback() {
+            @Override
+            public void onResponse(int statusCode, JSONObject response) {
+                try {
+                    JSONObject jsonObject = response.getJSONObject("data");
+                    Factory.setCurrentUser(User.fromJson(jsonObject));
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(LoginActivity.this, "Parsing error", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onErrorResponse(int statusCode, String response, VolleyError error) {
+                //
+            }
+        });
     }
 
     @Override

@@ -1,18 +1,28 @@
 package com.example.medicalbooking.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.VolleyError;
 import com.example.medicalbooking.R;
 import com.example.medicalbooking.adapter.AppointmentAdapter;
+import com.example.medicalbooking.factory.Factory;
 import com.example.medicalbooking.model.Appointment;
+import com.example.medicalbooking.model.Doctor;
+import com.example.medicalbooking.utils.HttpRequest;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class UpcomingAppointmentsActivity extends BaseActivity implements View.OnClickListener {
@@ -35,29 +45,73 @@ public class UpcomingAppointmentsActivity extends BaseActivity implements View.O
         appointmentsRecyclerView = findViewById(R.id.appointmentsRecyclerView);
         appointmentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        appointmentList = new ArrayList<>();
-        appointmentList.add(new Appointment("May 25", "10:00 AM", "Dr. James Smith", "City Health Clinic"));
-        appointmentList.add(new Appointment("May 27", "02:30 PM", "Dr. Olivia Lee", "Central Medical"));
-        appointmentList.add(new Appointment("May 30", "11:15 AM", "Dr. Ahmed Rachel", "Sunrise Clinic"));
+        loadUpcomingAppointment();
 
-        adapter = new AppointmentAdapter(appointmentList, new AppointmentAdapter.OnAppointmentActionListener() {
+        backArrow.setOnClickListener(this);
+    }
+
+    private void loadUpcomingAppointment() {
+        HttpRequest httpRequest = new HttpRequest(this);
+
+        // Set headers
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json");
+
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("user_id", Factory.getCurrentUser().getUserId());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+        appointmentList = new ArrayList<>();
+
+        httpRequest.executeJsonRequest("POST", Factory.getHostApi() + "/api/appointments", headers, jsonBody, new HttpRequest.JsonRequestCallback() {
             @Override
-            public void onCancelClicked(Appointment appointment, int position) {
-                Toast.makeText(UpcomingAppointmentsActivity.this, "Cancelled: " + appointment.getDoctor(), Toast.LENGTH_SHORT).show();
-                // Optionally remove item
-                // appointmentList.remove(position);
-                // adapter.notifyItemRemoved(position);
+            public void onResponse(int statusCode, JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("data");
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject obj = jsonArray.getJSONObject(i);
+                        Appointment appointment = new Appointment(
+                                obj.getInt("appointment_id"),
+                                obj.getString("appointment_time"),
+                                obj.getString("doctor_name"),
+                                obj.getString("clinic_name"));
+                        appointmentList.add(appointment);
+                    }
+
+                    adapter = new AppointmentAdapter(appointmentList, new AppointmentAdapter.OnAppointmentActionListener() {
+                        @Override
+                        public void onCancelClicked(Appointment appointment, int position) {
+                            Toast.makeText(UpcomingAppointmentsActivity.this, "Cancelled: " + appointment.getDoctor(), Toast.LENGTH_SHORT).show();
+                            // Optionally remove item
+                            // appointmentList.remove(position);
+                            // adapter.notifyItemRemoved(position);
+                        }
+
+                        @Override
+                        public void onRescheduleClicked(Appointment appointment, int position) {
+                            Toast.makeText(UpcomingAppointmentsActivity.this, "Reschedule: " + appointment.getDoctor(), Toast.LENGTH_SHORT).show();
+                            // Implement rescheduling logic
+                        }
+                    });
+                    appointmentsRecyclerView.setAdapter(adapter);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(UpcomingAppointmentsActivity.this, "Parsing error", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
-            public void onRescheduleClicked(Appointment appointment, int position) {
-                Toast.makeText(UpcomingAppointmentsActivity.this, "Reschedule: " + appointment.getDoctor(), Toast.LENGTH_SHORT).show();
-                // Implement rescheduling logic
+            public void onErrorResponse(int statusCode, String response, VolleyError error) {
+                Log.e("UpcomingAppointmentsActivity", "loadUpcomingAppointments error(" + statusCode + ": " + error.toString());
             }
         });
-
-        appointmentsRecyclerView.setAdapter(adapter);
-        backArrow.setOnClickListener(this);
     }
 
     @Override
