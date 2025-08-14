@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medicalbooking.R;
+import com.example.medicalbooking.model.Appointment;
 import com.example.medicalbooking.model.MedicationReminder;
 
 import java.util.List;
@@ -17,9 +18,16 @@ import java.util.List;
 public class MedicationReminderAdapter extends RecyclerView.Adapter<MedicationReminderAdapter.ViewHolder> {
 
     private List<MedicationReminder> reminderList;
+    private OnReminderActionListener listener;
 
-    public MedicationReminderAdapter(List<MedicationReminder> reminderList) {
+    public interface OnReminderActionListener {
+        void onEditClicked(MedicationReminder reminder, int position);
+        void onDeleteClicked(MedicationReminder reminder, int position);
+    }
+
+    public MedicationReminderAdapter(List<MedicationReminder> reminderList, OnReminderActionListener listener) {
         this.reminderList = reminderList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -34,15 +42,24 @@ public class MedicationReminderAdapter extends RecyclerView.Adapter<MedicationRe
     public void onBindViewHolder(@NonNull MedicationReminderAdapter.ViewHolder holder, int position) {
         MedicationReminder reminder = reminderList.get(position);
         holder.medName.setText(reminder.getName());
-        holder.medDosage.setText(reminder.getDosage());
-        holder.medTime.setText(reminder.getTime());
+
+        String timesPerDayStr = "";
+        if(reminder.getTimesPerDay() == 1)
+            timesPerDayStr = "Once ";
+        else if(reminder.getTimesPerDay() == 2)
+            timesPerDayStr = "Twice ";
+        else
+            timesPerDayStr = reminder.getTimesPerDay() + " times ";
+        timesPerDayStr += "daily";
+        holder.medDosage.setText(reminder.getDosage() + " - " + timesPerDayStr);
+        holder.medTime.setText(reminder.getReminderTime());
 
         holder.editButton.setOnClickListener(v ->
-                Toast.makeText(v.getContext(), "Edit: " + reminder.getName(), Toast.LENGTH_SHORT).show()
+            this.listener.onEditClicked(reminder, position)
         );
 
         holder.deleteButton.setOnClickListener(v ->
-                Toast.makeText(v.getContext(), "Delete: " + reminder.getName(), Toast.LENGTH_SHORT).show()
+            this.listener.onDeleteClicked(reminder, position)
         );
     }
 

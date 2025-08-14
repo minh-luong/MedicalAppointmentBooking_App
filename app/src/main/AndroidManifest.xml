@@ -37,6 +37,7 @@
         <activity android:name=".activity.HospitalLocatorActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.NotificationsActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.SettingsActivity" android:launchMode="singleTask"/>
+        <activity android:name=".activity.AddMedicineReminderActivity" android:launchMode="singleTask"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
