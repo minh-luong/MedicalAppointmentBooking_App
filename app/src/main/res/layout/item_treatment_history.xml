@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="12dp"
+    app:cardUseCompatPadding="true"
+    app:strokeWidth="1dp"
+    app:strokeColor="#E0E0E0">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header row: Date + Doctor -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/dateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mar 15, 2025"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#000000"/>
+
+            <TextView
+                android:id="@+id/doctorText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="Dr. Nguyen (Cardiology)"
+                android:textColor="#555555"/>
+        </LinearLayout>
+
+        <!-- Diagnosis -->
+        <TextView
+            android:id="@+id/diagnosisLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Diagnosis"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/diagnosisText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hypertension Stage 1"
+            android:textColor="#333333"
+            android:layout_marginTop="2dp"/>
+
+        <!-- Treatment -->
+        <TextView
+            android:id="@+id/treatmentLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Treatment"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/treatmentText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lifestyle changes and blood pressure monitoring"
+            android:textColor="#333333"
+            android:layout_marginTop="2dp"/>
+
+<!--        &lt;!&ndash; Prescriptions &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:id="@+id/prescriptionsLabel"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Prescriptions"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="#000000"-->
+<!--            android:layout_marginTop="10dp"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/prescriptionsText"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Lisinopril 10mg — 1 tablet daily after breakfast"-->
+<!--            android:textColor="#333333"-->
+<!--            android:layout_marginTop="2dp"/>-->
+
+<!--        &lt;!&ndash; Doctor notes &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:id="@+id/notesLabel"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Doctor Notes"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="#000000"-->
+<!--            android:layout_marginTop="10dp"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/notesText"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Monitor BP daily, reduce salt intake, follow up in 4 weeks."-->
+<!--            android:textColor="#666666"-->
+<!--            android:layout_marginTop="2dp"/>-->
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

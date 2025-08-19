@@ -41,7 +41,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             nextActivity(UpcomingAppointmentsActivity.class);
         }
         else if(id == R.id.medicalHistoryLayout) {
-            nextActivity(MedicalHistoryActivity.class);
+            nextActivity(TreatmentHistoryActivity.class);
         }
         else if(id == R.id.medicationReminderLayout) {
             nextActivity(MedicationReminderActivity.class);

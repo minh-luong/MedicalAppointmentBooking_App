@@ -22,8 +22,14 @@
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:scheme="https"
+                    android:host="medicalbooking-2d285.firebasestorage.app"
+                    android:pathPrefix="/__/auth/links" />
             </intent-filter>
         </activity>
         <activity android:name=".activity.LoginActivity" android:launchMode="singleTask"/>
@@ -32,7 +38,7 @@
         <activity android:name=".activity.HomeActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.BookAppointmentActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.UpcomingAppointmentsActivity" android:launchMode="singleTask"/>
-        <activity android:name=".activity.MedicalHistoryActivity" android:launchMode="singleTask"/>
+        <activity android:name=".activity.TreatmentHistoryActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.MedicationReminderActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.HospitalLocatorActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.NotificationsActivity" android:launchMode="singleTask"/>
