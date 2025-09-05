@@ -44,6 +44,9 @@
         <activity android:name=".activity.NotificationsActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.SettingsActivity" android:launchMode="singleTask"/>
         <activity android:name=".activity.AddMedicineReminderActivity" android:launchMode="singleTask"/>
+        <activity android:name=".activity.DoctorHomeActivity" android:launchMode="singleTask"/>
+        <activity android:name=".activity.UpdateTreatmentActivity" android:launchMode="singleTask"/>
+        <activity android:name=".activity.TreatmentDetailActivity" android:launchMode="singleTask"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

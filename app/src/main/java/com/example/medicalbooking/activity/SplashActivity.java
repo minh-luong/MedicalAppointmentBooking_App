@@ -56,7 +56,6 @@ public class SplashActivity extends BaseActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         loadUserInformation(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                        nextActivityNoBack(HomeActivity.class);
                     }
                     else {
                         new Timer().schedule(new TimerTask() {
@@ -92,6 +91,10 @@ public class SplashActivity extends BaseActivity {
                 try {
                     JSONObject jsonObject = response.getJSONObject("data");
                     Factory.setCurrentUser(User.fromJson(jsonObject));
+                    if(Factory.getCurrentUser().getRole().equals("doctor"))
+                        nextActivityNoBack(DoctorHomeActivity.class);
+                    else
+                        nextActivityNoBack(HomeActivity.class);
                 }
                 catch (Exception e) {
                     e.printStackTrace();

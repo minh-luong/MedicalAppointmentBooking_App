@@ -105,35 +105,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Repeat this for each feature -->
-        <LinearLayout
-            android:id="@+id/bookAppointmentLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_columnWeight="1"
-            android:gravity="center"
-            android:background="@drawable/feature_tile_bg"
-            android:padding="16dp"
-            android:layout_margin="8dp"
-            android:layout_rowWeight="1">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_calendar_add" />
-
-            <TextView
-                android:id="@+id/bookAppointmentText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Book\nAppointment"
-                android:textSize="14sp"
-                android:textColor="#000000"
-                android:gravity="center"
-                android:layout_marginTop="8dp"/>
-        </LinearLayout>
-
         <LinearLayout
             android:id="@+id/upcomingAppointmentsLayout"
             android:layout_width="0dp"
@@ -152,10 +123,9 @@
                 android:src="@drawable/ic_calendar_clock" />
 
             <TextView
-                android:id="@+id/upcomingAppointmentsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Upcoming Appointments"
+                android:text="Appointments"
                 android:textSize="14sp"
                 android:textColor="#000000"
                 android:gravity="center"
@@ -179,7 +149,6 @@
                 android:src="@drawable/ic_medical_history" />
 
             <TextView
-                android:id="@+id/medicalHistoryText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Treatment history"
@@ -188,33 +157,7 @@
                 android:gravity="center"
                 android:layout_marginTop="8dp"/>
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/medicationReminderLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_columnWeight="1"
-            android:gravity="center"
-            android:background="@drawable/feature_tile_bg"
-            android:padding="16dp"
-            android:layout_margin="8dp"
-            android:layout_rowWeight="1">
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_pill" />
-
-            <TextView
-                android:id="@+id/medicationReminderText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Medication Reminder"
-                android:textSize="14sp"
-                android:textColor="#000000"
-                android:gravity="center"
-                android:layout_marginTop="8dp"/>
-        </LinearLayout>
         <LinearLayout
             android:id="@+id/mapLayout"
             android:layout_width="0dp"

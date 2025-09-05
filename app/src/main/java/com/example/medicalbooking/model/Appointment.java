@@ -5,12 +5,16 @@ public class Appointment {
     private String appointmentTime;
     private String doctor;
     private String clinic;
+    private String patient;
+    private String symptom;
 
-    public Appointment(int appointmentId, String appointmentTime, String doctor, String clinic) {
+    public Appointment(int appointmentId, String appointmentTime, String doctor, String clinic, String patient, String symptom) {
         this.appointmentId = appointmentId;
         this.appointmentTime = appointmentTime;
         this.doctor = doctor;
         this.clinic = clinic;
+        this.patient = patient;
+        this.symptom = symptom;
     }
 
     public int getAppointmentId() {
@@ -31,6 +35,14 @@ public class Appointment {
 
     public String getClinic() {
         return clinic;
+    }
+
+    public String getPatient() {
+        return patient;
+    }
+
+    public String getSymptom() {
+        return symptom;
     }
 }
 

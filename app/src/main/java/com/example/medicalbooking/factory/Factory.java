@@ -5,7 +5,7 @@ import com.example.medicalbooking.model.User;
 
 public class Factory {
 
-    private static final String hostApi = "http://172.20.10.3:3000";
+    private static final String hostApi = "http://192.168.100.89:3000";
 
     private static BaseActivity currentActivity = null;
 

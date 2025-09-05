@@ -44,8 +44,6 @@ public class TreatmentHistoryActivity extends BaseActivity implements View.OnCli
 
         loadTreatmentHistory();
 
-        adapter = new TreatmentHistoryAdapter(historyList);
-        historyRecyclerView.setAdapter(adapter);
         backArrow.setOnClickListener(this);
     }
 
@@ -58,7 +56,7 @@ public class TreatmentHistoryActivity extends BaseActivity implements View.OnCli
 
         historyList = new ArrayList<>();
 
-        httpRequest.executeJsonRequest("GET", Factory.getHostApi() + "/api/treatment_histories/get/" + Factory.getCurrentUser().getUserId(),
+        httpRequest.executeJsonRequest("GET", Factory.getHostApi() + "/api/treatment_histories/user/" + Factory.getCurrentUser().getUserId(),
                 headers, new JSONObject(), new HttpRequest.JsonRequestCallback() {
             @Override
             public void onResponse(int statusCode, JSONObject response) {
@@ -83,7 +81,14 @@ public class TreatmentHistoryActivity extends BaseActivity implements View.OnCli
                         historyList.add(history);
                     }
 
-                    TreatmentHistoryAdapter adapter = new TreatmentHistoryAdapter(historyList);
+                    TreatmentHistoryAdapter adapter = new TreatmentHistoryAdapter(historyList, new TreatmentHistoryAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(int position) {
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("history_id", historyList.get(position).getHistoryId());
+                            nextActivityWithParam(TreatmentDetailActivity.class, bundle);
+                        }
+                    });
                     historyRecyclerView.setAdapter(adapter);
                 } catch (Exception e) {
                     Toast.makeText(TreatmentHistoryActivity.this, "Parse error: " + e.getMessage(), Toast.LENGTH_LONG).show();

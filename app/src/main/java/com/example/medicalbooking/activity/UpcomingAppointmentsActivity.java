@@ -45,30 +45,25 @@ public class UpcomingAppointmentsActivity extends BaseActivity implements View.O
         appointmentsRecyclerView = findViewById(R.id.appointmentsRecyclerView);
         appointmentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        loadUpcomingAppointment();
+        if(Factory.getCurrentUser().getRole().equals("doctor"))
+            loadUpcomingAppointmentForDoctor();
+        else
+            loadUpcomingAppointmentForUser();
 
         backArrow.setOnClickListener(this);
     }
 
-    private void loadUpcomingAppointment() {
+    private void loadUpcomingAppointmentForUser() {
         HttpRequest httpRequest = new HttpRequest(this);
 
         // Set headers
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
 
-        JSONObject jsonBody = new JSONObject();
-        try {
-            jsonBody.put("user_id", Factory.getCurrentUser().getUserId());
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
-
         appointmentList = new ArrayList<>();
 
-        httpRequest.executeJsonRequest("POST", Factory.getHostApi() + "/api/appointments", headers, jsonBody, new HttpRequest.JsonRequestCallback() {
+        httpRequest.executeJsonRequest("GET", Factory.getHostApi() + "/api/appointments/user/" + Factory.getCurrentUser().getUserId(),
+                headers, new JSONObject(), new HttpRequest.JsonRequestCallback() {
             @Override
             public void onResponse(int statusCode, JSONObject response) {
                 try {
@@ -80,11 +75,13 @@ public class UpcomingAppointmentsActivity extends BaseActivity implements View.O
                                 obj.getInt("appointment_id"),
                                 obj.getString("appointment_time"),
                                 obj.getString("doctor_name"),
-                                obj.getString("clinic_name"));
+                                obj.getString("clinic_name"),
+                                "",
+                                obj.getString("symptoms"));
                         appointmentList.add(appointment);
                     }
 
-                    adapter = new AppointmentAdapter(appointmentList, new AppointmentAdapter.OnAppointmentActionListener() {
+                    adapter = new AppointmentAdapter(appointmentList, false, new AppointmentAdapter.OnAppointmentActionListener() {
                         @Override
                         public void onCancelClicked(Appointment appointment, int position) {
                             Toast.makeText(UpcomingAppointmentsActivity.this, "Cancelled: " + appointment.getDoctor(), Toast.LENGTH_SHORT).show();
@@ -97,6 +94,72 @@ public class UpcomingAppointmentsActivity extends BaseActivity implements View.O
                         public void onRescheduleClicked(Appointment appointment, int position) {
                             Toast.makeText(UpcomingAppointmentsActivity.this, "Reschedule: " + appointment.getDoctor(), Toast.LENGTH_SHORT).show();
                             // Implement rescheduling logic
+                        }
+
+                        @Override
+                        public void onTreatmentUpdateClicked(Appointment appointment, int position) {
+
+                        }
+                    });
+                    appointmentsRecyclerView.setAdapter(adapter);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(UpcomingAppointmentsActivity.this, "Parsing error", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onErrorResponse(int statusCode, String response, VolleyError error) {
+                Log.e("UpcomingAppointmentsActivity", "loadUpcomingAppointments error(" + statusCode + ": " + error.toString());
+            }
+        });
+    }
+
+    private void loadUpcomingAppointmentForDoctor() {
+        HttpRequest httpRequest = new HttpRequest(this);
+
+        // Set headers
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json");
+
+        appointmentList = new ArrayList<>();
+
+        httpRequest.executeJsonRequest("GET", Factory.getHostApi() + "/api/appointments/doctor/" + Factory.getCurrentUser().getUserId(),
+                headers, new JSONObject(), new HttpRequest.JsonRequestCallback() {
+            @Override
+            public void onResponse(int statusCode, JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("data");
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject obj = jsonArray.getJSONObject(i);
+                        Appointment appointment = new Appointment(
+                                obj.getInt("appointment_id"),
+                                obj.getString("appointment_time"),
+                                "",
+                                "",
+                                obj.getString("patient_name"),
+                                obj.getString("symptoms"));
+                        appointmentList.add(appointment);
+                    }
+
+                    adapter = new AppointmentAdapter(appointmentList, true, new AppointmentAdapter.OnAppointmentActionListener() {
+                        @Override
+                        public void onCancelClicked(Appointment appointment, int position) {
+
+                        }
+
+                        @Override
+                        public void onRescheduleClicked(Appointment appointment, int position) {
+
+                        }
+
+                        @Override
+                        public void onTreatmentUpdateClicked(Appointment appointment, int position) {
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("appointment_id", appointment.getAppointmentId());
+                            nextActivityWithParam(UpdateTreatmentActivity.class, bundle);
                         }
                     });
                     appointmentsRecyclerView.setAdapter(adapter);

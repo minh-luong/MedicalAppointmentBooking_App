@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medicalbooking.R;
 import com.example.medicalbooking.model.TreatmentHistory;
+import com.google.android.material.card.MaterialCardView;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -17,9 +18,11 @@ import java.util.Locale;
 public class TreatmentHistoryAdapter extends RecyclerView.Adapter<TreatmentHistoryAdapter.ViewHolder> {
 
     private List<TreatmentHistory> historyList;
+    private OnItemClickListener listener;
 
-    public TreatmentHistoryAdapter(List<TreatmentHistory> historyList) {
+    public TreatmentHistoryAdapter(List<TreatmentHistory> historyList, OnItemClickListener listener) {
         this.historyList = historyList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -44,6 +47,11 @@ public class TreatmentHistoryAdapter extends RecyclerView.Adapter<TreatmentHisto
         holder.dateText.setText(formattedDate);
         holder.diagnosisText.setText(history.getDiagnosis());
         holder.doctorText.setText(history.getDoctor() + " (" + history.getSpecialty() + ")");
+        holder.cardView.setOnClickListener(v -> {
+            if(listener != null) {
+                listener.onItemClick(position);
+            }
+        });
 //        holder.treatmentText.setText(history.getTreatment());
 //        holder.notesText.setText(history.getNotes());
     }
@@ -54,15 +62,21 @@ public class TreatmentHistoryAdapter extends RecyclerView.Adapter<TreatmentHisto
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        MaterialCardView cardView;
         TextView dateText, diagnosisText, doctorText; //treatmentText, notesText;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            cardView = itemView.findViewById(R.id.treatmentCard);
             dateText = itemView.findViewById(R.id.dateText);
             diagnosisText = itemView.findViewById(R.id.diagnosisText);
             doctorText = itemView.findViewById(R.id.doctorText);
 //            treatmentText = itemView.findViewById(R.id.treatmentText);
 //            notesText = itemView.findViewById(R.id.notesText);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
     }
 }

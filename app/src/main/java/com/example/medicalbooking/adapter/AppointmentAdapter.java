@@ -19,23 +19,32 @@ import java.util.Locale;
 public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.ViewHolder> {
 
     private List<Appointment> appointments;
+    private boolean isDoctor;
     private OnAppointmentActionListener listener;
 
     public interface OnAppointmentActionListener {
         void onCancelClicked(Appointment appointment, int position);
         void onRescheduleClicked(Appointment appointment, int position);
+        void onTreatmentUpdateClicked(Appointment appointment, int position);
     }
 
-    public AppointmentAdapter(List<Appointment> appointments, OnAppointmentActionListener listener) {
+    public AppointmentAdapter(List<Appointment> appointments, boolean isDoctor, OnAppointmentActionListener listener) {
         this.appointments = appointments;
+        this.isDoctor = isDoctor;
         this.listener = listener;
     }
 
     @NonNull
     @Override
     public AppointmentAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_appointment, parent, false);
+        View view;
+
+        if(isDoctor)
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_appointment_doctor, parent, false);
+        else
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_appointment, parent, false);
         return new ViewHolder(view);
     }
 
@@ -51,14 +60,24 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         }
         holder.dateText.setText(formattedDate);
         holder.timeText.setText(appointment.getAppointmentTime().substring(11, 19));
-        holder.doctorText.setText(appointment.getDoctor());
-        holder.clinicText.setText(appointment.getClinic());
 
-        holder.cancelButton.setOnClickListener(v ->
-                listener.onCancelClicked(appointment, position));
+        if(!this.isDoctor) {
+            holder.doctorText.setText(appointment.getDoctor());
+            holder.clinicText.setText(appointment.getClinic());
 
-        holder.rescheduleButton.setOnClickListener(v ->
-                listener.onRescheduleClicked(appointment, position));
+            holder.cancelButton.setOnClickListener(v ->
+                    listener.onCancelClicked(appointment, position));
+
+            holder.rescheduleButton.setOnClickListener(v ->
+                    listener.onRescheduleClicked(appointment, position));
+        }
+        else {
+            holder.patientText.setText(appointment.getPatient());
+            holder.symptomText.setText(appointment.getSymptom());
+
+            holder.treatmentUpdateButton.setOnClickListener(v ->
+                    listener.onTreatmentUpdateClicked(appointment, position));
+        }
     }
 
     @Override
@@ -67,8 +86,8 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView dateText, timeText, doctorText, clinicText;
-        Button cancelButton, rescheduleButton;
+        TextView dateText, timeText, doctorText, clinicText, patientText, symptomText;
+        Button cancelButton, rescheduleButton, treatmentUpdateButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -76,8 +95,11 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             timeText = itemView.findViewById(R.id.timeText);
             doctorText = itemView.findViewById(R.id.doctorText);
             clinicText = itemView.findViewById(R.id.clinicText);
+            patientText = itemView.findViewById(R.id.patientText);
+            symptomText = itemView.findViewById(R.id.symptomText);
             cancelButton = itemView.findViewById(R.id.cancelButton);
             rescheduleButton = itemView.findViewById(R.id.rescheduleButton);
+            treatmentUpdateButton = itemView.findViewById(R.id.treatmentButton);
         }
     }
 }

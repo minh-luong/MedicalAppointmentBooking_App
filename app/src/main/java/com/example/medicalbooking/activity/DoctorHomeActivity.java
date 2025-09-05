@@ -2,7 +2,6 @@ package com.example.medicalbooking.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -10,23 +9,19 @@ import android.widget.LinearLayout;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.medicalbooking.R;
-import com.example.medicalbooking.factory.Factory;
 
-public class HomeActivity extends BaseActivity implements View.OnClickListener {
+public class DoctorHomeActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_home_doctor);
 
         initUI();
     }
 
     private void initUI() {
-        ((LinearLayout) findViewById(R.id.bookAppointmentLayout)).setOnClickListener(this);
         ((LinearLayout) findViewById(R.id.upcomingAppointmentsLayout)).setOnClickListener(this);
-        ((LinearLayout) findViewById(R.id.medicalHistoryLayout)).setOnClickListener(this);
-        ((LinearLayout) findViewById(R.id.medicationReminderLayout)).setOnClickListener(this);
         ((LinearLayout) findViewById(R.id.mapLayout)).setOnClickListener(this);
         ((ConstraintLayout) findViewById(R.id.notificationIconLayout)).setOnClickListener(this);
         ((ImageView) findViewById(R.id.settingsIcon)).setOnClickListener(this);
@@ -36,17 +31,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if(id == R.id.bookAppointmentLayout) {
-            nextActivity(BookAppointmentActivity.class);
-        }
-        else if(id == R.id.upcomingAppointmentsLayout) {
+
+        if(id == R.id.upcomingAppointmentsLayout) {
             nextActivity(UpcomingAppointmentsActivity.class);
         }
         else if(id == R.id.medicalHistoryLayout) {
             nextActivity(TreatmentHistoryActivity.class);
-        }
-        else if(id == R.id.medicationReminderLayout) {
-            nextActivity(MedicationReminderActivity.class);
         }
         else if(id == R.id.mapLayout) {
             nextActivity(HospitalLocatorActivity.class);

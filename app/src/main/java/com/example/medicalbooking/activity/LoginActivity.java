@@ -107,7 +107,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     }
 
                     Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
-                    nextActivityNoBack(HomeActivity.class);
                 }
                 else {
                     Toast.makeText(LoginActivity.this, "Login failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
@@ -140,6 +139,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 try {
                     JSONObject jsonObject = response.getJSONObject("data");
                     Factory.setCurrentUser(User.fromJson(jsonObject));
+                    if(Factory.getCurrentUser().getRole().equals("doctor"))
+                        nextActivityNoBack(DoctorHomeActivity.class);
+                    else
+                        nextActivityNoBack(HomeActivity.class);
                 }
                 catch (Exception e) {
                     e.printStackTrace();
